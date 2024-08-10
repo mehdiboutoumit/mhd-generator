@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^12.1.0",
+    "fs": "^0.0.1-security",
     "inquirer": "^10.1.2",
     "mhd-js-beta": "file:"
   },

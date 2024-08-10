@@ -25,9 +25,16 @@ program
   .command('generate <project-type> <project-name>')
   .description('Generate a new project of type <project-type>')
   .alias('g')
+  .option('--ts', 'Add TypeScript for enhanced type safety')
   .option('--redux', 'Include Redux for state management (React only)')
-  .option('--docker', 'Use docker')
+  .option('--ngrx', 'Include NgRx for state management (Angular only)')
+  .option('--docker', 'Add Docker setup for containerization')
   .option('--scss', 'Use SCSS for styling (Angular only)')
+  .option('--git', 'Initialize a Git repository with initial commit')
+  .option('--ci-cd', 'Set up a basic CI/CD pipeline configuration')
+  .option('--api', 'Include a basic API integration setup')
+  .option('--env', 'Set up environment variables for different environments')
+  .option('--prettier', 'Add Prettier for code formatting')
   .action((projectType, projectName, options) => {
     if (projectType === 'react') {
       createReactApp(projectName, options);
