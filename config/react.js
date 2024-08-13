@@ -1,12 +1,15 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
+const inquirer = require('inquirer');
+const reactCiCdGitHub = require('../templates/react/github-actions.js');
+const reactCiCdGitLab = require('../templates/react/gitlab-ci.js');
 const gitignore = require('../templates/react/gitignore');
 const dockerfile = require('../templates/react/dockerFileReact');
 const dockerIgnore = require('../templates/react/dockerIgnore');
 
 
-const createReactApp = (projectName, options) => {
+const createReactApp = async (projectName, options) => {
   
   console.log(`Creating a new React project named ${projectName} using Vite...`);
 
@@ -18,6 +21,7 @@ const createReactApp = (projectName, options) => {
   if (options.redux) {
     console.log('Adding Redux to the project...');
     execSync(`cd ${projectName} && npm install @reduxjs/toolkit react-redux`, { stdio: 'inherit' });
+    console.log('Redux added successfully');
   }
 
   // GIT option
@@ -39,9 +43,39 @@ const createReactApp = (projectName, options) => {
     console.log('Created .dockerignore');
   }
 
+  // CI/CD setup
+  const createCiCdSetup = async (projectDir) => {
+    const { ciCdChoice } = await inquirer.default.prompt([
+      {
+        type: 'list',
+        name: 'ciCdChoice',
+        message: 'Choose a CI/CD service:',
+        choices: ['GitHub Actions', 'GitLab CI'],
+      },
+    ]);
 
-  if(options.ciCd){
-    console.log('Setting up CI CD ...');
+    let ciCdContent;
+
+    if (ciCdChoice === 'GitHub Actions') {
+      ciCdContent = reactCiCdGitHub;
+      const ciCdDir = path.join(projectDir, '.github', 'workflows');
+
+      if (!fs.existsSync(ciCdDir)) {
+        fs.mkdirSync(ciCdDir, { recursive: true });
+      }
+
+      fs.writeFileSync(path.join(ciCdDir, 'ci.yml'), ciCdContent);
+      console.log('Created GitHub Actions workflow for CI/CD');
+    } else if (ciCdChoice === 'GitLab CI') {
+      ciCdContent = reactCiCdGitLab;
+      fs.writeFileSync(path.join(projectDir, '.gitlab-ci.yml'), ciCdContent);
+      console.log('Created GitLab CI pipeline configuration');
+    }
+  };
+
+  if (options.ciCd) {
+    console.log('Setting up CI/CD...');
+    await createCiCdSetup(projectName);
   }
 
   if(options.api){

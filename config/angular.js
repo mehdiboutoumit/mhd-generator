@@ -2,6 +2,8 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const gitignore = require('../templates/angular/gitignore');
+const dockerfile = require('../templates/angular/dockerFileAngular');
+const dockerIgnore = require('../templates/angular/dockerIgnore');
 
 const createAngularApp = (projectName, options) => {
   console.log(`Creating a new Angular project named ${projectName}...`);
@@ -32,7 +34,12 @@ const createAngularApp = (projectName, options) => {
 
 
   if (options.docker){
-    console.log('Setting up docker ...');
+    console.log('Setting up Docker ...');
+    fs.writeFileSync(path.join(projectName, 'Dockerfile'), dockerfile);
+    console.log('Created Dockerfile');
+  
+    fs.writeFileSync(path.join(projectName, '.dockerignore'), dockerIgnore);
+    console.log('Created .dockerignore');
   }
 
   if(options.ciCd){

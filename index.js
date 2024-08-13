@@ -35,11 +35,11 @@ program
   .option('--api', 'Include a basic API integration setup')
   .option('--env', 'Set up environment variables for different environments')
   .option('--prettier', 'Add Prettier for code formatting')
-  .action((projectType, projectName, options) => {
+  .action(async (projectType, projectName, options) => {
     if (projectType === 'react') {
-      createReactApp(projectName, options);
+      await createReactApp(projectName, options);
     } else if (projectType === 'angular') {
-      createAngularApp(projectName, options);
+      await createAngularApp(projectName, options);
     } else {
       console.error('Invalid project type. Use "react" or "angular".');
       process.exit(1);
