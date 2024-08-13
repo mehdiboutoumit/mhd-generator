@@ -17,8 +17,7 @@
     "commander": "^12.1.0",
     "fs": "^0.0.1-security",
     "inquirer": "^10.1.8",
-    "mhd-js": "file:",
-    "mhd-js-beta": "file:"
+    "mhd-js": "file:"
   },
   "bin": {
     "mhd": "./index.js"

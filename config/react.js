@@ -22,7 +22,7 @@ const prettierIgnoreTemp = require('../templates/shared/prettierIgnore.js');
 
 const createReactApp = async (projectName, options) => {
   
-  console.log(`Creating a new React project named ${projectName} using Vite...`);
+  console.log(`Creating a new React project named ${projectName} ...`);
 
   // Project creation (TS option handled)
   const template = options.ts ? 'react-ts' : 'react';
