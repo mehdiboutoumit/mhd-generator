@@ -17,8 +17,8 @@ const envAPIExample = require('../templates/react/envAPI.js');
 
 const envExample = require('../templates/react/env.js');
 
-const prettierConfigTemp = require('../templates/react/prettierConfig.js');
-const prettierIgnoreTemp = require('../templates/react/prettierIgnore.js');
+const prettierConfigTemp = require('../templates/shared/prettierConfig.js');
+const prettierIgnoreTemp = require('../templates/shared/prettierIgnore.js');
 
 const createReactApp = async (projectName, options) => {
   
