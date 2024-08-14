@@ -21,7 +21,7 @@
 You can install `mhd-generator` globally using npm:
 
 ```bash
-npm install -g mhd
+npm install -g mhd-generator
 ```
 
 ## Usage
