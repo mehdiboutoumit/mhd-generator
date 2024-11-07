@@ -15,6 +15,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          
+      # Check if package-lock.json is out of sync and update if necessary
+      - name: Ensure lock file is in sync
+        run: |
+          npm install
+          git diff --exit-code package-lock.json || (git add package-lock.json && git commit -m "Sync package-lock.json with package.json")
+
       - run: npm ci
       - run: npm test
 
@@ -27,7 +34,14 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+
+      # Ensure package-lock.json is in sync before publishing
+      - name: Ensure lock file is in sync
+        run: |
+          npm install
+          git diff --exit-code package-lock.json || (git add package-lock.json && git commit -m "Sync package-lock.json with package.json" && git push)
+          
       - run: npm ci
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
