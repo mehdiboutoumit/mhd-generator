@@ -1,6 +1,6 @@
 {
   "name": "mhd-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a powerful and flexible project generator designed to streamline the process of creating React and Angular projects with desired pre-configurations. This tool aims to simplify the initial setup and configuration, allowing developers to focus more on building features rather than setting up their projects.",
   "main": "index.js",
   "scripts": {
@@ -23,9 +23,7 @@
     "fs": "^0.0.1-security",
     "inquirer": "^10.1.8",
     "mhd": "file:",
-    "mhd-gen": "file:",
-    "mhd-generator": "file:",
-    "mhd-js": "file:"
+    "mhd-generator": "file:"
   },
   "bin": {
     "mhd": "./index.js"
